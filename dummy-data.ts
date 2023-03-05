@@ -1,3 +1,5 @@
+// import fs from "fs";
+
 const DUMMY_EVENTS = [
   {
     id: "e1",
@@ -31,6 +33,10 @@ const DUMMY_EVENTS = [
   },
 ];
 
+const longResult = JSON.stringify(DUMMY_EVENTS);
+
+// fs.writeFileSync(`./data.json`, longResult);
+
 export function getFeaturedEvents() {
   return DUMMY_EVENTS.filter((event) => event.isFeatured);
 }
@@ -39,7 +45,7 @@ export function getAllEvents() {
   return DUMMY_EVENTS;
 }
 
-export function getFilteredEvents(dateFilter) {
+export function getFilteredEvents(dateFilter: any) {
   const { year, month } = dateFilter;
 
   let filteredEvents = DUMMY_EVENTS.filter((event) => {
@@ -52,6 +58,6 @@ export function getFilteredEvents(dateFilter) {
   return filteredEvents;
 }
 
-export function getEventById(id) {
+export function getEventById(id: any) {
   return DUMMY_EVENTS.find((event) => event.id === id);
 }
