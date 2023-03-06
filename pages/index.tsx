@@ -18,6 +18,8 @@ export async function getStaticProps(context: any) {
     props: {
       events: featuredEvents,
     },
+    // Re-generate this page every 30 minutes for every new request
+    revalidate: 1800,
   };
 }
 
