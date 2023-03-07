@@ -64,4 +64,23 @@ function FiltedEventsPage() {
   );
 }
 
+export async function getServerSideProps(context: any) {
+  const { params } = context;
+  const filteredData = params.slug;
+  const numYear = Number(filteredData[0]);
+  const numMonth = Number(filteredData[1]);
+
+  if (
+    isNaN(numYear) ||
+    isNaN(numMonth) ||
+    numYear > 2030 ||
+    numYear < 2021 ||
+    numMonth < 1 ||
+    numMonth > 12
+  ) {
+    return "";
+  }
+  return { props: {} };
+}
+
 export default FiltedEventsPage;
