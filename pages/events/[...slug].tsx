@@ -6,7 +6,7 @@ import ResultsTitle from "../../components/events/results-title";
 import Button from "../../components/ui/button";
 import ErrorAlert from "../../components/ui/error-alert";
 
-function FiltedEventsPage() {
+function FiltedEventsPage(props: any) {
   // Runs after 1st rendering
   const router = useRouter();
 
@@ -19,14 +19,7 @@ function FiltedEventsPage() {
   const numYear = Number(filteredData[0]);
   const numMonth = Number(filteredData[1]);
 
-  if (
-    isNaN(numYear) ||
-    isNaN(numMonth) ||
-    numYear > 2030 ||
-    numYear < 2021 ||
-    numMonth < 1 ||
-    numMonth > 12
-  ) {
+  if (props.hasError) {
     return (
       <Fragment>
         <ErrorAlert>
@@ -78,7 +71,14 @@ export async function getServerSideProps(context: any) {
     numMonth < 1 ||
     numMonth > 12
   ) {
-    return "";
+    return {
+      // Shows the 404 error page
+      // notFound: true,
+      // Other way, managing it inside our component
+      props: { hasError: true },
+      // Option for an automatic redirect
+      // redirect: { destination: "/" }
+    };
   }
   return { props: {} };
 }
