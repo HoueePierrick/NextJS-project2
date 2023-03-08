@@ -26,8 +26,9 @@ export async function getEventById(id: any) {
 
 export async function getFilteredEvents(dateFilter: any) {
   const { year, month } = dateFilter;
+  const allEvents = await getAllEvents();
 
-  let filteredEvents = DUMMY_EVENTS.filter((event) => {
+  let filteredEvents = allEvents.filter((event) => {
     const eventDate = new Date(event.date);
     return (
       eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
