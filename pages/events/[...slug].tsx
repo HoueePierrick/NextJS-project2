@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 // import { getFilteredEvents } from "../../dummy-data";
@@ -33,9 +34,21 @@ function FiltedEventsPage(props: any) {
     }
   }, [data]);
 
+  let pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta name="description" content={`A list of filtered events`} />
+    </Head>
+  );
+
   if (!loadedEvents) {
     // Classname as a string as center is defined in the global CSS file
-    return <p className="center">Loading</p>;
+    return (
+      <Fragment>
+        {pageHeadData}
+        <p className="center">Loading</p>;
+      </Fragment>
+    );
   }
 
   const filteredYear = filteredData![0];
@@ -44,6 +57,15 @@ function FiltedEventsPage(props: any) {
   const numYear: number = Number(filteredYear);
   const numMonth: number = Number(filteredMonth);
 
+  pageHeadData = (
+    <Head>
+      <title>Filtered Events</title>
+      <meta
+        name="description"
+        content={`All events for ${numMonth}/${numYear}`}
+      />
+    </Head>
+  );
   if (
     isNaN(numYear) ||
     isNaN(numMonth) ||
@@ -54,6 +76,7 @@ function FiltedEventsPage(props: any) {
   ) {
     return (
       <Fragment>
+        {pageHeadData}
         <ErrorAlert>
           <p>Invalid filter. Please adjust your values!</p>
         </ErrorAlert>
@@ -73,11 +96,12 @@ function FiltedEventsPage(props: any) {
   });
 
   // const filteredEvents = getFilteredEvents({ year: numYear, month: numMonth });
-  const filteredEvents = props.events;
+  // const filteredEvents = props.events;
 
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
       <Fragment>
+        {pageHeadData}
         <ErrorAlert>
           <p>No events found for the chosen filter!</p>
         </ErrorAlert>
@@ -92,6 +116,7 @@ function FiltedEventsPage(props: any) {
 
   return (
     <Fragment>
+      {pageHeadData}
       <ResultsTitle date={date}></ResultsTitle>
       <EventList items={filteredEvents}></EventList>
     </Fragment>
