@@ -14,6 +14,7 @@ function HomePage(props: any) {
         <meta
           name="description"
           content="Find a lot of great events that allow you to evolve..."
+          key="description"
         />
       </Head>
       <EventList items={props.events}></EventList>
