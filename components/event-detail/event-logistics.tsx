@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import AddressIcon from "../icons/address-icon";
 import DateIcon from "../icons/date-icon";
@@ -17,7 +18,8 @@ function EventLogistics(props: any) {
   return (
     <section className={classes.logistics}>
       <div className={classes.image}>
-        <img src={`/${image}`} alt={imageAlt} />
+        <Image src={`/${image}`} alt={imageAlt} width={300} height={300} />
+        {/* <img src={`/${image}`} alt={imageAlt} /> */}
       </div>
       <ul className={classes.list}>
         <LogisticsItem icon={DateIcon}>
